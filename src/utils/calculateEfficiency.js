@@ -2,6 +2,7 @@ const initialState = {
   totalActiveTime: '0',
   mostUsedTime: '0',
   totalIdleTime: '0',
+  mostUsedAppName: '',
   productivity: 0,
 };
 
@@ -11,6 +12,8 @@ export const calculateEfficiency = (data) => {
   let totalActive = 0;
   let totalIdle = 0;
   let mostUsed = 0;
+  let codeTime = 0;
+  let mostUsedAppName = '';
 
   data.forEach((item) => {
     const duration = Number(item.totalDuration) || 0;
@@ -18,11 +21,14 @@ export const calculateEfficiency = (data) => {
     // Track most used time
     if (duration > mostUsed) {
       mostUsed = duration;
+      mostUsedAppName = item.app;
     }
-
     // Idle app condition
     if (item.app === 'LockApp.exe') {
       totalIdle += duration;
+    }
+    if (item.app === 'Code.exe' || item.app === 'idea64.exe') {
+      codeTime += duration;
     } else {
       totalActive += duration;
     }
@@ -35,6 +41,8 @@ export const calculateEfficiency = (data) => {
   return {
     totalActiveTime: formatTime(totalActive.toFixed(2)),
     mostUsedTime: formatTime(mostUsed.toFixed(2)),
+    mostUsedAppName: mostUsedAppName,
+    codeTime: formatTime(codeTime.toFixed(2)),
     totalIdleTime: formatTime(totalIdle.toFixed(2)),
     productivity: Number(productivity),
   };

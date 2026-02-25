@@ -4,7 +4,7 @@ import { calculateEfficiency } from '../utils/calculateEfficiency';
 const TrackerContext = createContext();
 
 export const TrackerProvider = ({ children }) => {
-  const [applicationData, setApplicationData] = useState([]);
+  // const [applicationData, setApplicationData] = useState([]);
   const [efficiencyData, setEfficiencyData] = useState(null);
 
   const updateTrackerData = (data) => {
@@ -24,7 +24,7 @@ export const TrackerProvider = ({ children }) => {
   return (
     <TrackerContext.Provider
       value={{
-        applicationData,
+        // applicationData,
         efficiencyData,
         updateTrackerData,
         resetEfficiency,

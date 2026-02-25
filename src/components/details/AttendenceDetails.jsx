@@ -52,16 +52,6 @@ function AttendenceDetails({ sessions = [], close }) {
                     <td className="py-3 px-4 text-gray-300">
                       {session.durationMinutes ? formatDuration(session.durationMinutes) : '—'}
                     </td>
-                    {/* <td className="py-3 px-4">
-                    {session.punchInLocation?.address ? (
-                      <div className="flex items-center gap-2 text-gray-300">
-                        <MapPin size={16} className="text-blue-400 flex-shrink-0" />
-                        <span className="truncate">{session.punchInLocation.address}</span>
-                      </div>
-                    ) : (
-                      <span className="text-gray-500">—</span>
-                    )}
-                  </td> */}
                   </tr>
                 ))
               ) : (

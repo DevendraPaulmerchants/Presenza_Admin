@@ -159,8 +159,8 @@ function Attendance() {
                   <td className="py-2">{emp?.employee?.email}</td>
                   <td className="py-2">{emp?.employee?.departmentName}</td>
                   <td className="py-2">{emp?.employee?.designationName}</td>
-                  <td className="py-2">{formatedTime(emp?.firstPunchIn)}</td>
-                  <td className="py-2">{formatedTime(emp?.lastPunchOut)}</td>
+                  <td className="py-2">{formatedTime(emp?.firstPunchIn) || '-'}</td>
+                  <td className="py-2">{formatedTime(emp?.lastPunchOut) || '_'}</td>
                   <td className="py-2">{formatedDate(emp?.date)}</td>
                   <td className="py-2">
                     <span

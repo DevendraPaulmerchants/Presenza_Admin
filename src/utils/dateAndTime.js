@@ -1,11 +1,11 @@
 export const formatedDate = (date) => {
-  if (!date) return 'no date';
+  if (!date) return '—';
 
   // Ensure we have a Date object. If `date` is a string or number, convert it.
   const d = date instanceof Date ? date : new Date(date);
 
   // Handle invalid dates
-  if (isNaN(d.getTime())) return 'invalid date';
+  if (isNaN(d.getTime())) return '—';
 
   return d.toLocaleDateString('en-US', {
     year: 'numeric',
@@ -15,13 +15,13 @@ export const formatedDate = (date) => {
 };
 
 export const formatedTime = (date) => {
-  if (!date) return 'no date';
+  if (!date) return '—';
 
   // Ensure we have a Date object. If `date` is a string or number, convert it.
   const d = date instanceof Date ? date : new Date(date);
 
   // Handle invalid dates
-  if (isNaN(d.getTime())) return 'invalid date';
+  if (isNaN(d.getTime())) return '—';
   return d.toLocaleTimeString('en-US', {
     hour: '2-digit',
     minute: '2-digit',

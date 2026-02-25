@@ -1,4 +1,4 @@
-import { AlertCircle, Clock, Monitor, TrendingUp } from 'lucide-react';
+import { AlertCircle, Clock, Code, Monitor, TrendingUp } from 'lucide-react';
 import React, { useEffect } from 'react';
 import { useTracker } from '../../context/TrackerContext';
 
@@ -8,8 +8,10 @@ function AcivityStats() {
   useEffect(() => {
     resetEfficiency();
   }, []);
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+      {/* Total Active hours */}
       <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 rounded-xl p-6 shadow-xl">
         <div className="flex items-center gap-3 mb-2">
           <div className="p-2 bg-cyan-400/20 rounded-lg">
@@ -19,7 +21,7 @@ function AcivityStats() {
         </div>
         <h3 className="text-2xl font-bold text-white">{efficiencyData?.totalActiveTime || 0}</h3>
       </div>
-
+      {/* Most Used App */}
       <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 rounded-xl p-6 shadow-xl">
         <div className="flex items-center gap-3 mb-2">
           <div className="p-2 bg-green-400/20 rounded-lg">
@@ -28,9 +30,20 @@ function AcivityStats() {
           <p className="text-sm text-gray-300">Most Used App</p>
         </div>
         <h3 className="text-2xl font-bold text-white">{efficiencyData?.mostUsedTime || 0}</h3>
-        <p className="text-xs text-gray-400 mt-1">Chrome </p>
+        <p className="text-xs text-gray-400 mt-1">{efficiencyData?.mostUsedAppName || ''} </p>
       </div>
-
+      {/* Code time */}
+      <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 rounded-xl p-6 shadow-xl">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="p-2 bg-green-400/20 rounded-lg">
+            <Code className="h-5 w-5 text-green-300" />
+          </div>
+          <p className="text-sm text-gray-300">Code Time</p>
+        </div>
+        <h3 className="text-2xl font-bold text-white">{efficiencyData?.codeTime || 0}</h3>
+        <p className="text-xs text-gray-400 mt-1">V S Code / IntelliJ IDEA</p>
+      </div>
+      {/* Idle Time */}
       <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 rounded-xl p-6 shadow-xl">
         <div className="flex items-center gap-3 mb-2">
           <div className="p-2 bg-orange-400/20 rounded-lg">
@@ -40,7 +53,7 @@ function AcivityStats() {
         </div>
         <h3 className="text-2xl font-bold text-white">{efficiencyData?.totalIdleTime || 0}</h3>
       </div>
-
+      {/* Productivity */}
       <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 rounded-xl p-6 shadow-xl">
         <div className="flex items-center gap-3 mb-2">
           <div className="p-2 bg-purple-400/20 rounded-lg">
