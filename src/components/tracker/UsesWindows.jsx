@@ -18,16 +18,17 @@ function UsesWindows({ selectedEmp }) {
 
   const isExpanded = visibleCount >= totalRecords;
 
-  const effectiveSelectedEmp = selectedEmp;
 
   useEffect(() => {
-    fetchEmployees();
-  }, [effectiveSelectedEmp]);
+    if(selectedEmp){
+      fetchEmployees();
+    }
+  }, [selectedEmp]);
 
   const fetchEmployees = async () => {
     try {
       setLoading(true);
-      const response = await getWindowUsedByEmp(effectiveSelectedEmp);
+      const response = await getWindowUsedByEmp(selectedEmp);
       if (response.success) {
         console.log('uses windows responses', response);
         setWindowDetails(response.data || []);

@@ -25,7 +25,7 @@ function EmployeeList() {
         setError(response.error || 'Something went wrong');
       }
     } catch (err) {
-      setError('Failed to fetch attendance');
+      setError(err.message || 'Failed to fetch attendance');
     } finally {
       setLoading(false);
     }

@@ -11,6 +11,7 @@ export const calculateEfficiency = (data) => {
   let totalActive = 0;
   let totalIdle = 0;
   let mostUsed = 0;
+  let mostUsedAppName='';
 
   data.forEach((item) => {
     const duration = Number(item.totalDuration) || 0;
@@ -18,6 +19,7 @@ export const calculateEfficiency = (data) => {
     // Track most used time
     if (duration > mostUsed) {
       mostUsed = duration;
+      mostUsedAppName=item.app;
     }
 
     // Idle app condition
@@ -35,6 +37,7 @@ export const calculateEfficiency = (data) => {
   return {
     totalActiveTime: formatTime(totalActive.toFixed(2)),
     mostUsedTime: formatTime(mostUsed.toFixed(2)),
+    mostUsedAppName:mostUsedAppName,
     totalIdleTime: formatTime(totalIdle.toFixed(2)),
     productivity: Number(productivity),
   };

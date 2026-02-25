@@ -28,7 +28,7 @@ function AcivityStats() {
           <p className="text-sm text-gray-300">Most Used App</p>
         </div>
         <h3 className="text-2xl font-bold text-white">{efficiencyData?.mostUsedTime || 0}</h3>
-        <p className="text-xs text-gray-400 mt-1">Chrome </p>
+        <p className="text-xs text-gray-400 mt-1">{efficiencyData?.mostUsedAppName} </p>
       </div>
 
       <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 rounded-xl p-6 shadow-xl">

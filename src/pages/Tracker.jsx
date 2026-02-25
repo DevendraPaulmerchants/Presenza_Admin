@@ -1,45 +1,11 @@
 import { useEffect, useState } from 'react';
-import {
-  ChevronLeft,
-  ChevronRight,
-  Calendar,
-  Filter,
-  RefreshCw,
-  Clock,
-  Monitor,
-  Globe,
-  Code,
-  AlertCircle,
-  TrendingUp,
-  ChevronDown,
-} from 'lucide-react';
-import {
-  BarChart,
-  Bar,
-  LineChart,
-  Line,
-  PieChart,
-  Pie,
-  Cell,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-} from 'recharts';
+
 import TopApplication from '../components/tracker/TopApplication';
 import UsesWindows from '../components/tracker/UsesWindows';
 import { getAllEmployees } from '../services/api/apiService';
 import AcivityStats from '../components/tracker/AcivityStats';
 import Loading from '../components/common/Loading';
-// const employees = [
-//   { id: 1, name: 'Sarah Johnson', status: 'active' },
-//   { id: 2, name: 'Michael Chen', status: 'active' },
-//   { id: 3, name: 'Emily Davis', status: 'idle' },
-//   { id: 4, name: 'John Smith', status: 'active' },
-//   { id: 5, name: 'Lisa Brown', status: 'active' },
-// ];
+import { Filter } from 'lucide-react';
 
 function Tracker() {
   const today = new Date().toISOString().split('T')[0];

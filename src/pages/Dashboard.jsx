@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Clock, UserCheck, Users, UserX } from 'lucide-react';
 import AttendenceChart from '../components/chart/AttendenceChart';
 import DepartmentChart from '../components/chart/DepartmentChart';
+import { getAllEmployees } from '../services/api/apiService';
+import Loading from '../components/common/Loading';
+import { createDashboardItems } from '../utils/formateddashboarddata';
 
 const dashboardItems = [
   {
@@ -51,10 +54,38 @@ const dashboardItems = [
 ];
 
 function Dashboard() {
+  const [empCount,setEmpCount]=useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(()=>{
+      fetchEmployeesCount()
+  },[])
+
+  const fetchEmployeesCount = async () => {
+      try {
+        setLoading(true);
+        const response = await getAllEmployees('/dashboard');
+        if (response.success) {
+          setEmpCount(createDashboardItems(response.data) || [])
+          // setEmpCount(response.data || []);
+          console.log(response)
+        } else {
+          setError(response.error || 'Something went wrong');
+        }
+      } catch (err) {
+        setError(err.message || 'Failed to fetch attendance');
+      } finally {
+        setLoading(false);
+      }
+    };
+
   return (
     <div className="mt-6">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {dashboardItems.map((item) => {
+        {loading && <Loading message='Fetching Employees data...' />}
+        {error && <p className="text-red-400">{error}</p>}
+        {empCount?.map((item) => {
           const IconComponent = item.icon;
           return (
             <div
