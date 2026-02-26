@@ -29,7 +29,9 @@ export const calculateEfficiency = (data) => {
     }
     if (item.app === 'Code.exe' || item.app === 'idea64.exe') {
       codeTime += duration;
-    } else {
+      totalActive +=duration;
+    } 
+    else {
       totalActive += duration;
     }
   });
@@ -39,7 +41,7 @@ export const calculateEfficiency = (data) => {
   const productivity = totalTime > 0 ? ((totalActive / totalTime) * 100).toFixed(2) : 0;
 
   return {
-    totalActiveTime: formatTime(totalActive.toFixed(2)),
+    totalActiveTime: formatTime(totalActive.toFixed(2) - totalIdle.toFixed(2)),
     mostUsedTime: formatTime(mostUsed.toFixed(2)),
     mostUsedAppName: mostUsedAppName,
     codeTime: formatTime(codeTime.toFixed(2)),

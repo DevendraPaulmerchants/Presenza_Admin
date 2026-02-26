@@ -2,7 +2,7 @@ import React from 'react';
 import { formatedTime } from '../../utils/dateAndTime';
 import { MapPin, X } from 'lucide-react';
 
-function AttendenceDetails({ sessions = [], close }) {
+function AttendenceDetails({ sessions = [], empCode,close }) {
   const formatDuration = (minutes) => {
     if (!minutes) return '0 minutes';
     const hours = Math.floor(minutes / 60);
@@ -17,7 +17,7 @@ function AttendenceDetails({ sessions = [], close }) {
     <div className="fixed inset-0 bg-black/50 backdrop-blur-[1px] flex items-center justify-center z-50">
       <div className="bg-gradient-to-br from-[#032446] to-[#1e2f4f] rounded-lg p-6 max-w-4xl w-full mx-4 border border-white/20 shadow-2xl">
         <div className="flex justify-between items-center mb-4 pb-4 border-b border-white/20">
-          <h4 className="text-white font-semibold text-lg">Punch Sessions</h4>
+          <h4 className="text-white/60 font-semibold text-lg">Punch Sessions for EmpId: <b className='text-white/70'>{empCode}</b></h4>
           <button
             onClick={close}
             className="text-white hover:text-red-400 cursor-pointer transition-colors"

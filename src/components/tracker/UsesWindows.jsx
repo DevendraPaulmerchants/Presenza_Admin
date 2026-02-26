@@ -4,12 +4,11 @@ import { getWindowUsedByEmp } from '../../services/api/apiService';
 import { formatDurationFromSeconds } from '../../utils/formattedDurationFromSeconds';
 import Loading from '../common/Loading';
 import { getAppIcon } from '../aap_window_icons/Icons';
+import { sortArrayBasedOnKey } from '../../utils/sortArrayBasedOnKey';
 
-function UsesWindows({ selectedEmp }) {
+function UsesWindows({ selectedEmp='' }) {
   const [windowDetails, setWindowDetails] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
   const [visibleCount, setVisibleCount] = useState(5);
 
   const totalRecords = windowDetails?.length || 0;
@@ -31,13 +30,14 @@ function UsesWindows({ selectedEmp }) {
       const response = await getWindowUsedByEmp(selectedEmp);
       if (response.success) {
         console.log('uses windows responses', response);
-        setWindowDetails(response.data || []);
-        // setShowAll(false);
+         const sortedList=sortArrayBasedOnKey(response.data,"duration");
+         setWindowDetails(sortedList);
+        // setWindowDetails(response.data || []);
       } else {
-        setError(response.error || 'Something went wrong');
+        console.error(response.error || 'Something went wrong');
       }
     } catch (err) {
-      setError('Failed to fetch attendance');
+      console.error('Failed to fetch attendance',err);
     } finally {
       setLoading(false);
     }

@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { getAllEmployees } from '../services/api/apiService';
+import { getEmpAttendence } from '../services/api/apiService';
 import { formatedDate, formatedTime } from '../utils/dateAndTime';
-import { Eye, MoreVertical } from 'lucide-react';
+import { Eye } from 'lucide-react';
 import AttendenceDetails from '../components/details/AttendenceDetails';
 import Loading from '../components/common/Loading';
+import { captalizeWords } from '../utils/captalizeWords';
 
 function Attendance() {
   const [searchEmpId, setSearchEmpId] = useState('');
@@ -14,7 +15,10 @@ function Attendance() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isDetails, setIsDetails] = useState(false);
-  const [empSession, setEmpSessions] = useState([]);
+  const [empSession, setEmpSession] = useState(null);
+
+  const[empCode,setEmpCode]=useState('')
+
   const today = new Date().toISOString().split('T')[0];
 
   useEffect(() => {
@@ -24,7 +28,7 @@ function Attendance() {
   const fetchEmployees = async () => {
     try {
       setLoading(true);
-      const response = await getAllEmployees('/attendance');
+      const response = await getEmpAttendence('/attendance');
 
       if (response.success) {
         setEmployees(response.data.data || []);
@@ -32,7 +36,7 @@ function Attendance() {
         setError(response.error || 'Something went wrong');
       }
     } catch (err) {
-      setError('Failed to fetch attendance');
+      setError('Failed to fetch attendance:',err);
     } finally {
       setLoading(false);
     }
@@ -65,8 +69,9 @@ function Attendance() {
       return matchesId && matchesDept && matchesStatus && matchesDate;
     });
   }, [employees, searchEmpId, departmentFilter, statusFilter, dateFilter]);
-  const openDetailsPage = () => {
+  const openDetailsPage = (empCode) => {
     setIsDetails(true);
+    setEmpCode(empCode)
   };
   const closeDetailsPage = () => {
     setIsDetails(false);
@@ -172,15 +177,15 @@ function Attendance() {
                             : 'bg-orange-400/20 text-orange-300'
                       }`}
                     >
-                      {emp.status}
+                      {captalizeWords(emp.status)}
                     </span>
                   </td>
                   <td className="py-2">
                     <button
                       className="flex items-center w-full justify-center cursor-pointer hover:scale-110 transition-transform duration-200"
                       onClick={() => {
-                        setEmpSessions(emp.sessions);
-                        openDetailsPage();
+                        setEmpSession(emp.sessions);
+                        openDetailsPage(emp?.employee?.employeeCode);
                       }}
                     >
                       <Eye size={20} />
@@ -198,7 +203,7 @@ function Attendance() {
           </tbody>
         </table>
       </div>
-      {isDetails && <AttendenceDetails sessions={empSession} close={closeDetailsPage} />}
+      {isDetails && <AttendenceDetails empCode={empCode} sessions={empSession} close={closeDetailsPage} />}
     </>
   );
 }

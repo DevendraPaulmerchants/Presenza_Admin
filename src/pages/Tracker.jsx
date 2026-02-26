@@ -30,11 +30,12 @@ function Tracker() {
         setError(response.error || 'Something went wrong');
       }
     } catch (err) {
-      setError('Failed to fetch attendance');
+      setError('Failed to fetch attendance:',err);
     } finally {
       setLoading(false);
     }
   };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#1e2f4f] via-[#2a4470] to-[#1e2f4f] p-6">

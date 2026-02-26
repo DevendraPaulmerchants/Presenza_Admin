@@ -1,57 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Clock, UserCheck, Users, UserX } from 'lucide-react';
 import AttendenceChart from '../components/chart/AttendenceChart';
 import DepartmentChart from '../components/chart/DepartmentChart';
 import { getAllEmployees } from '../services/api/apiService';
 import Loading from '../components/common/Loading';
 import { createDashboardItems } from '../utils/formateddashboarddata';
-
-const dashboardItems = [
-  {
-    id: 1,
-    icon: Users,
-    iconBgColor: 'bg-cyan-400/20',
-    iconColor: 'text-cyan-300',
-    value: '150',
-    label: 'Total Employees',
-    percentage: '+12%',
-    percentageBgColor: 'bg-cyan-400/20',
-    percentageTextColor: 'text-cyan-200',
-  },
-  {
-    id: 2,
-    icon: UserCheck,
-    iconBgColor: 'bg-green-400/20',
-    iconColor: 'text-green-300',
-    value: '142',
-    label: 'Present Today',
-    percentage: '95%',
-    percentageBgColor: 'bg-green-400/20',
-    percentageTextColor: 'text-green-200',
-  },
-  {
-    id: 3,
-    icon: UserX,
-    iconBgColor: 'bg-red-400/20',
-    iconColor: 'text-red-300',
-    value: '8',
-    label: 'Absent Today',
-    percentage: '5%',
-    percentageBgColor: 'bg-red-400/20',
-    percentageTextColor: 'text-red-200',
-  },
-  {
-    id: 4,
-    icon: Clock,
-    iconBgColor: 'bg-orange-400/20',
-    iconColor: 'text-orange-300',
-    value: '12',
-    label: 'Late Arrivals',
-    percentage: '-3%',
-    percentageBgColor: 'bg-orange-400/20',
-    percentageTextColor: 'text-orange-200',
-  },
-];
 
 function Dashboard() {
   const [empCount,setEmpCount]=useState(null);
